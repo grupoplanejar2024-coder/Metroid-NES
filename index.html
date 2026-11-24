@@ -200,7 +200,7 @@
       </div>
       <span class="badge">Nintendo Entertainment System • NES</span>
       <h1>Metroid</h1>
-      <p class="subtitle">Toque em jogar para iniciar o emulador no navegador.</p>
+      <p class="subtitle">Toca em jogar para iniciar o emulador no navegador.</p>
       <button class="btn-play" id="btn-start" type="button">▶ Jogar Agora</button>
       <p class="status" id="status-msg"></p>
     </section>
@@ -212,7 +212,7 @@
   </section>
 
   <script>
-    const ROM_FILENAME = "Metroid (USA).nes";
+    const ROM_FILENAME = "Metroid.nes";
     const COVER_FILENAME = "Metroid NES.jpg";
 
     const launcherEl = document.getElementById("launcher");
@@ -229,11 +229,11 @@
       try {
         const res = await fetch(url, { method: "HEAD", cache: "no-store" });
         if (!res.ok) {
-          return { ok: false, motivo: `Não foi possível acessar a ROM (HTTP ${res.status}).` };
+          return { ok: false, motivo: `Não foi possível aceder à ROM (HTTP ${res.status}).` };
         }
         const len = Number(res.headers.get("content-length") || 0);
         if (res.headers.has("content-length") && len < 1024) {
-          return { ok: false, motivo: "O arquivo da ROM parece vazio ou corrompido (< 1 KB)." };
+          return { ok: false, motivo: "O ficheiro da ROM parece vazio ou corrompido (< 1 KB)." };
         }
         return { ok: true };
       } catch (err) {
@@ -259,7 +259,7 @@
       script.src = "https://cdn.emulatorjs.org/stable/data/loader.js";
       script.async = true;
       script.onerror = () => {
-        statusMsg.textContent = "Falha ao carregar o motor do EmulatorJS. Verifique sua conexão.";
+        statusMsg.textContent = "Falha ao carregar o motor do EmulatorJS. Verifica a tua ligação.";
         statusMsg.classList.add("error");
       };
       document.body.appendChild(script);
@@ -267,13 +267,13 @@
 
     btnStart.addEventListener("click", async () => {
       statusMsg.classList.remove("error");
-      statusMsg.textContent = "Verificando arquivo da ROM...";
+      statusMsg.textContent = "A verificar ficheiro da ROM...";
 
       const romUrl = encodeURI(ROM_FILENAME);
       const check = await verificarRomAcessivel(romUrl);
 
       if (!check.ok) {
-        statusMsg.textContent = `${check.motivo} Confira o nome exato do arquivo .nes na pasta.`;
+        statusMsg.textContent = `${check.motivo} Confere o nome exato do ficheiro .nes na pasta.`;
         statusMsg.classList.add("error");
         return;
       }
@@ -290,7 +290,7 @@
       if (window.history.length > 1) {
         window.history.back();
       } else {
-        statusMsg.textContent = "Você já está na tela inicial do jogo.";
+        statusMsg.textContent = "Já estás na tela inicial do jogo.";
       }
     });
 
